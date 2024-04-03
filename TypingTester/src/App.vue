@@ -27,6 +27,7 @@ export default {
       this.generatedSpecificText = this.generateText();
       this.symbolIndex = 0;
       this.userTypedText = '';
+      this.status = "Not started";
     },
     keydownHandle(e) {
       if (e.key === this.generatedSpecificText[this.symbolIndex]) {
