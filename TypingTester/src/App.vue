@@ -3,6 +3,10 @@
     <h1>Typing Tester</h1>
     <h2>{{status}}</h2>
     <br>
+    <div class="mode-buttons">
+      <button @click="setMode('standard')">Standard Mode</button>
+      <button @click="setMode('medium')">Medium Mode</button>
+    </div>
     <h1>
       <span v-for="(letter, index) in generatedSpecificText" :key="index">
         <span :class="{'highlighted': index === symbolIndex, 'incorrect': index < userTypedText.length && letter !== userTypedText[index]}">{{ letter }}</span>
@@ -18,11 +22,16 @@ export default {
       generatedSpecificText: this.generateText(),
       symbolIndex: 0,
       userTypedText: '',
-      status: 'Not started'
+      status: 'Not started',
+      mode: "standart"
     };
   },
   mounted() { window.addEventListener('keydown', (e) => this.keydownHandle(e)); },
   methods: {
+    setMode(mode) {
+      this.mode = mode;
+      this.generatedSpecificText = this.generateText();
+    },
     resetText() {
       this.generatedSpecificText = this.generateText();
       this.symbolIndex = 0;
@@ -30,6 +39,10 @@ export default {
       this.status = "Not started";
     },
     keydownHandle(e) {
+      if (e.key === 'CapsLock') {
+        e.preventDefault();
+        return;
+      }
       if (e.key === this.generatedSpecificText[this.symbolIndex]) {
         this.status = "Typing normaly...";
         this.symbolIndex++;
@@ -41,16 +54,20 @@ export default {
       }
     },
     generateText() {
-      const words = [
-      "что", "слово", "сразу", "нет", "казаться", "понять", "свой", "ты", "на", "твой", "по","который", "ведь", "иметь","здесь", "никто", "а","голова", "сразу", "город","стол", "между", "и","понимать", "этот", "человек","для", "себя", "да","оно", "жизнь", "успех","телефон", "стул", "диван","купить", "народ", "холодный", "теплый", "горячий", "водка", "день", "дело", "вид", "время", "вопрос", "конец", "друг", "работа", "мир", "раз", "ребенок", "рука", "сила", "слово", "случай", "сторона", "страна", "человек", "быть", "взять", "видеть", "говорить", "дать", "думать", "знать", "мочь", "оказать", "оказаться", "получить", "понять", "сделать", "разработчик", "возможность", "игры", "убивать", "ребенок", "бабушка", "мама", "папа", "дедушка", "уролог", "врач", "больничный", "станция", "поезд", "палата", "еда", "каша", "картошка", "яблоко", "молока", "туалет"
-    ];
-    const randomWords = [];
-    for (let i = 0; i < 10; i++) {
-      const randomIndex = Math.floor(Math.random() * words.length);
-      randomWords.push(words[randomIndex]);
+  const words = [
+    "что", "слово", "сразу", "нет", "казаться", "понять", "свой", "ты", "на", "твой", "по","который", "ведь", "иметь","здесь", "никто", "а","голова", "сразу", "город","стол", "между", "и","понимать", "этот", "человек","для", "себя", "да","оно", "жизнь", "успех","телефон", "стул", "диван","купить", "народ", "холодный", "теплый", "горячий", "водка", "день", "дело", "вид", "время", "вопрос", "конец", "друг", "работа", "мир", "раз", "ребенок", "рука", "сила", "слово", "случай", "сторона", "страна", "человек", "быть", "взять", "видеть", "говорить", "дать", "думать", "знать", "мочь", "оказать", "оказаться", "получить", "понять", "сделать", "разработчик", "возможность", "игры", "убивать", "ребенок", "бабушка", "мама", "папа", "дедушка", "уролог", "врач", "больничный", "станция", "поезд", "палата", "еда", "каша", "картошка", "яблоко", "молока", "туалет"
+  ];
+  const randomWords = [];
+  for (let i = 0; i < 10; i++) {
+    const randomIndex = Math.floor(Math.random() * words.length);
+    let word = words[randomIndex];
+    if (this.mode === 'medium') {
+      word = word.charAt(0).toUpperCase() + word.slice(1);
     }
-    return randomWords.join(" ");
-    }
+    randomWords.push(word);
+  }
+  return randomWords.join(" ");
+}
   }
 }
 </script>
@@ -82,5 +99,14 @@ body {
   background-color: #3498db;
   border-radius: 5px;
   padding: 20px;
+}
+
+.mode-buttons button {
+  padding: 20px;
+  font-size: 1.5rem;
+  border: none;
+  background-color: white;
+  color: black;
+  cursor: pointer;
 }
 </style>
