@@ -4,15 +4,16 @@
     <h2>{{status}}</h2>
     <br>
     <div class="mode-buttons">
-      <button @click="setMode('standard')">Standard Mode</button>
+      <button @click="setMode('standart')">Standard Mode</button>
       <button @click="setMode('medium')">Medium Mode</button>
+      <button @click="setMode('hard')">Hard Mode</button>
     </div>
     <h1>
       <span v-for="(letter, index) in generatedSpecificText" :key="index">
         <span :class="{'highlighted': index === symbolIndex, 'incorrect': index < userTypedText.length && letter !== userTypedText[index]}">{{ letter }}</span>
       </span>
     </h1>
-    <button v-if="userTypedText.length === generatedSpecificText.length || userTypedText.length > generatedSpecificText.length" @click="resetText">Reset</button>
+    <button @click="resetText">Reset</button>
   </div>
 </template>
 <script>
@@ -23,6 +24,7 @@ export default {
       symbolIndex: 0,
       userTypedText: '',
       status: 'Not started',
+      hard_word: "",
       mode: "standart"
     };
   },
@@ -30,6 +32,7 @@ export default {
   methods: {
     setMode(mode) {
       this.mode = mode;
+      this.userTypedText = '';
       this.generatedSpecificText = this.generateText();
     },
     resetText() {
@@ -55,16 +58,28 @@ export default {
     },
     generateText() {
   const words = [
-    "что", "слово", "сразу", "нет", "казаться", "понять", "свой", "ты", "на", "твой", "по","который", "ведь", "иметь","здесь", "никто", "а","голова", "сразу", "город","стол", "между", "и","понимать", "этот", "человек","для", "себя", "да","оно", "жизнь", "успех","телефон", "стул", "диван","купить", "народ", "холодный", "теплый", "горячий", "водка", "день", "дело", "вид", "время", "вопрос", "конец", "друг", "работа", "мир", "раз", "ребенок", "рука", "сила", "слово", "случай", "сторона", "страна", "человек", "быть", "взять", "видеть", "говорить", "дать", "думать", "знать", "мочь", "оказать", "оказаться", "получить", "понять", "сделать", "разработчик", "возможность", "игры", "убивать", "ребенок", "бабушка", "мама", "папа", "дедушка", "уролог", "врач", "больничный", "станция", "поезд", "палата", "еда", "каша", "картошка", "яблоко", "молока", "туалет"
+    "что", "слово", "сразу", "нет", "казаться", "понять", "свой", "ты", "на", "твой", "по","который", "ведь", "иметь","здесь", "никто", "а","голова", "сразу", "город","стол", "между", "и","понимать", "этот", "человек","для", "себя", "да","оно", "жизнь", "успех","телефон", "стул", "диван","купить", "народ", "холодный", "теплый", "горячий", "водка", "день", "дело", "вид", "время", "вопрос", "конец", "друг", "работа", "мир", "раз", "ребенок", "рука", "сила", "слово", "случай", "сторона", "страна", "человек", "быть", "взять", "видеть", "говорить", "дать", "думать", "знать", "мочь", "оказать", "оказаться", "получить", "понять", "сделать", "разработчик", "возможность", "игры", "убивать", "ребенок", "бабушка", "мама", "папа", "дедушка", "уролог", "врач", "больничный", "станция", "поезд", "палата", "еда", "каша", "картошка", "яблоко", "молока", "красный", "синий", "зеленый", "белый"
   ];
+  const hard_words = [
+    "бесспорно", "трансцендентный","автостеклоподъмники", "длинношеее","собираться", "вокруг","который", "иметь","первый", "ехать","взгляд", "транскрипция","аксессуар", "человеческий","ветрогенератор", "голослов","землетрясение", "огнетушитель","дождевик", "молокосос","водоснабжение", "железнодорожник","алеть", "безынтересный","безысходный", "безумный","безопасный", "беспрекословный","впечатлительный", "возрастать","исчезающий", "мороженщик","надеяться", "намерение"
+  ]
   const randomWords = [];
   for (let i = 0; i < 10; i++) {
     const randomIndex = Math.floor(Math.random() * words.length);
     let word = words[randomIndex];
+    for (let i = 0; i < 10; i++) {
+      const random_hard_index = Math.floor(Math.random() * hard_words.length);
+      this.hard_word = hard_words[random_hard_index];
+    }
     if (this.mode === 'medium') {
       word = word.charAt(0).toUpperCase() + word.slice(1);
+      randomWords.push(word);
+    } else if (this.mode === "hard") {
+      this.hard_word = this.hard_word.charAt(0).toUpperCase() + this.hard_word.slice(1);
+      randomWords.push(this.hard_word);
+    } else if (this.mode === "standart") {
+      randomWords.push(word);
     }
-    randomWords.push(word);
   }
   return randomWords.join(" ");
 }
