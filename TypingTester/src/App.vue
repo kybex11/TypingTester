@@ -2,6 +2,7 @@
   <div class="container">
     <h1>Typing Tester</h1>
     <h2>{{status}}</h2>
+    <h2>Current mode: {{mode}}</h2>
     <br>
     <div class="mode-buttons">
       <button @click="setMode('standart')">Standart Mode</button>
