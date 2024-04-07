@@ -5,8 +5,8 @@
     <h2>Current mode: {{mode}}</h2>
     <br>
     <div class="mode-buttons">
+      <button @click="setLowerCase()">Up Case</button>
       <button @click="setMode('easy')">Easy Mode</button>
-      <button @click="setMode('medium')">Medium Mode</button>
       <button @click="setMode('hard')">Hard Mode</button>
     </div>
     <h1>
@@ -26,11 +26,17 @@ export default {
       userTypedText: '',
       status: 'Not started',
       hard_word: "",
-      mode: "easy"
+      lower_case: false,
+      mode: ""
     };
   },
   mounted() { window.addEventListener('keydown', (e) => this.keydownHandle(e)); },
   methods: {
+    setLowerCase() {
+      this.lower_case = !this.lower_case;
+      this.userTypedText = '';
+      this.generatedSpecificText = this.generateText();
+    },
     setMode(mode) {
       this.mode = mode;
       this.userTypedText = '';
@@ -72,13 +78,15 @@ export default {
       const random_hard_index = Math.floor(Math.random() * hard_words.length);
       this.hard_word = hard_words[random_hard_index];
     }
-    if (this.mode === 'medium') {
-      word = word.charAt(0).toUpperCase() + word.slice(1);
-      randomWords.push(word);
-    } else if (this.mode === "hard") {
-      this.hard_word = this.hard_word.charAt(0).toUpperCase() + this.hard_word.slice(1);
+    if (this.mode === "hard") {
+      if (this.lower_case) {
+        this.hard_word = this.hard_word.charAt(0).toUpperCase() + this.hard_word.slice(1);
+      }
       randomWords.push(this.hard_word);
     } else if (this.mode === "easy") {
+      if (this.lower_case) {
+        word = word.charAt(0).toUpperCase() + word.slice(1);
+      }
       randomWords.push(word);
     }
   }
