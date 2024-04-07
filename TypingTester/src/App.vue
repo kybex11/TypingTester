@@ -5,7 +5,7 @@
     <h2>Current mode: {{mode}}</h2>
     <br>
     <div class="mode-buttons">
-      <button @click="setMode('standart')">Standart Mode</button>
+      <button @click="setMode('easy')">Easy Mode</button>
       <button @click="setMode('medium')">Medium Mode</button>
       <button @click="setMode('hard')">Hard Mode</button>
     </div>
@@ -26,7 +26,7 @@ export default {
       userTypedText: '',
       status: 'Not started',
       hard_word: "",
-      mode: "standart"
+      mode: "easy"
     };
   },
   mounted() { window.addEventListener('keydown', (e) => this.keydownHandle(e)); },
@@ -78,7 +78,7 @@ export default {
     } else if (this.mode === "hard") {
       this.hard_word = this.hard_word.charAt(0).toUpperCase() + this.hard_word.slice(1);
       randomWords.push(this.hard_word);
-    } else if (this.mode === "standart") {
+    } else if (this.mode === "easy") {
       randomWords.push(word);
     }
   }
