@@ -4,7 +4,7 @@
     <h2>{{status}}</h2>
     <br>
     <div class="mode-buttons">
-      <button @click="setMode('standart')">Standard Mode</button>
+      <button @click="setMode('standart')">Standart Mode</button>
       <button @click="setMode('medium')">Medium Mode</button>
       <button @click="setMode('hard')">Hard Mode</button>
     </div>
