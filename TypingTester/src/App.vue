@@ -302,6 +302,18 @@ body {
   text-align: center;
   color: white;
 }
+
+.container h1 {
+  font-size: 70px;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-image: linear-gradient(to bottom left, #553c9a, #cb4226);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .resetButton {
   -webkit-user-select: none;
   user-select: none;
