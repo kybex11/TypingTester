@@ -1,6 +1,6 @@
 <template>
   <div class="container" v-if="score > 0">
-    <h1>Typing Tester</h1>
+    <h1 class="title">Typing Tester</h1>
     <h2>{{ status }}</h2>
     <h2>Ranked {{score}}</h2>
     <h2>Current mode: {{ mode }}</h2>
@@ -10,6 +10,7 @@
       <button @click="setMode('easy')">Easy Mode</button>
       <button @click="setMode('hard')">Hard Mode</button>
       <button @click="enable()">{{rankedText}}</button>
+      <button @click="resetText()">Reset</button>
     </div>
     <h1>
       <span v-for="(letter, index) in generatedSpecificText" :key="index">
@@ -22,7 +23,6 @@
         >
       </span>
     </h1>
-    <button @click="resetText" class="resetButton">Reset</button>
   </div>
   <div class="else-container" v-else>
     <h1>Game Over!</h1>
@@ -303,27 +303,15 @@ body {
   color: white;
 }
 
-.container h1 {
+.container .title {
   font-size: 70px;
   font-weight: bold;
   text-transform: uppercase;
-  background-image: linear-gradient(to bottom left, #553c9a, #cb4226);
+  background-image: linear-gradient(45deg, #553c9a, #ee4b2b);;
   color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-.resetButton {
-  -webkit-user-select: none;
-  user-select: none;
-  cursor: pointer;
-  border: none;
-  color: white;
-  font-size: 2rem;
-  background-color: #3498db;
-  border-radius: 7px;
-  padding: 16px;
 }
 
 .mode-buttons button {
