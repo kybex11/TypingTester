@@ -9,6 +9,7 @@
       <button @click="setLowerCase()">Up Case</button>
       <button @click="setMode('easy')">Easy Mode</button>
       <button @click="setMode('hard')">Hard Mode</button>
+      <button @click="enable()">{{rankedText}}</button>
     </div>
     <h1>
       <span v-for="(letter, index) in generatedSpecificText" :key="index">
@@ -38,8 +39,10 @@ export default {
       userTypedText: '',
       status: 'Not started',
       hard_word: '',
+      rankedText: 'Ranked Disabled',
       lower_case: false,
       mode: '',
+      enabled: false,
       score: 100,
     }
   },
@@ -47,6 +50,18 @@ export default {
     window.addEventListener('keydown', (e) => this.keydownHandle(e))
   },
   methods: {
+    enable() {
+      this.rankedText = "Ranked Enabled"
+      this.enabled = !this.enabled;
+      if (!this.enabled) {
+        this.rankedText = "Ranked Disabled"
+      }
+      this.score = 100;
+      this.userTypedText = '';
+      this.generatedSpecificText = this.generateText();
+      this.symbolIndex = 0;
+      this.status = 'Not started';
+    },
     try_again() {
       this.score = 100;
       this.userTypedText = '';
@@ -81,7 +96,9 @@ export default {
         this.userTypedText += e.key
       } else {
         this.status = 'Error...'
-        this.score-=1;
+        if (this.enabled) {
+          this.score-=1;
+        }
         this.symbolIndex++
         this.userTypedText += ' '
       }
