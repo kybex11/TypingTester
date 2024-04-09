@@ -1,7 +1,8 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="score > 0">
     <h1>Typing Tester</h1>
     <h2>{{ status }}</h2>
+    <h2>Ranked {{score}}</h2>
     <h2>Current mode: {{ mode }}</h2>
     <br />
     <div class="mode-buttons">
@@ -20,7 +21,12 @@
         >
       </span>
     </h1>
-    <button @click="resetText">Reset</button>
+    <button @click="resetText" class="resetButton">Reset</button>
+  </div>
+  <div class="else-container" v-else>
+    <h1>Game Over!</h1>
+    <br>
+    <button @click="try_again()">Try again</button>
   </div>
 </template>
 <script>
@@ -33,13 +39,21 @@ export default {
       status: 'Not started',
       hard_word: '',
       lower_case: false,
-      mode: ''
+      mode: '',
+      score: 100,
     }
   },
   mounted() {
     window.addEventListener('keydown', (e) => this.keydownHandle(e))
   },
   methods: {
+    try_again() {
+      this.score = 100;
+      this.userTypedText = '';
+      this.generatedSpecificText = this.generateText();
+      this.symbolIndex = 0;
+      this.status = 'Not started';
+    },
     setLowerCase() {
       this.lower_case = !this.lower_case
       this.userTypedText = ''
@@ -62,11 +76,12 @@ export default {
         return
       }
       if (e.key === this.generatedSpecificText[this.symbolIndex]) {
-        this.status = 'Typing normaly...'
+        this.status = 'Normaly...'
         this.symbolIndex++
         this.userTypedText += e.key
       } else {
-        this.status = 'Typing error...'
+        this.status = 'Error...'
+        this.score-=1;
         this.symbolIndex++
         this.userTypedText += ' '
       }
@@ -232,6 +247,24 @@ export default {
 }
 </script>
 <style>
+.else-container {
+  color: red;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+.else-container h1 {
+  font-size: 5rem;
+}
+.else-container button {
+  -webkit-user-select: none;
+  user-select: none;
+  border: none;
+  padding: 20px;
+  font-size: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
 .highlighted {
   background-color: yellow;
   color: black;
@@ -253,13 +286,15 @@ body {
   color: white;
 }
 .resetButton {
+  -webkit-user-select: none;
+  user-select: none;
   cursor: pointer;
   border: none;
   color: white;
   font-size: 2rem;
   background-color: #3498db;
-  border-radius: 5px;
-  padding: 20px;
+  border-radius: 7px;
+  padding: 16px;
 }
 
 .mode-buttons button {
