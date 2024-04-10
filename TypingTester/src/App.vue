@@ -1,11 +1,7 @@
 <template>
-  <div class="container" v-if="score > 0">
-    <h1 class="title">Typing Tester</h1>
-    <h2>{{ status }}</h2>
-    <h2>Ranked {{ score }}</h2>
-    <h2>Current mode: {{ mode }}</h2>
-    <br />
-    <div class="mode-buttons">
+  <div class="nav">
+    <h1>Spelling Tester</h1>
+      <div class="mode-buttons">
       <button @click="changeLang()">Change Language: {{ language }}</button>
       <button @click="setLowerCase()">Up Case</button>
       <button @click="setMode('easy')">Easy Mode</button>
@@ -13,6 +9,12 @@
       <button @click="enable()">{{ rankedText }}</button>
       <button @click="resetText()">Reset</button>
     </div>
+  </div>
+  <div class="container" v-if="score > 0">
+    <h2>{{ status }}</h2>
+    <h2>Ranked {{ score }}</h2>
+    <h2>Current mode: {{ mode }}</h2>
+    <br />
     <h1>
       <span v-for="(letter, index) in generatedSpecificText" :key="index">
         <span
@@ -414,31 +416,29 @@ export default {
 }
 
 body {
+  overflow: hidden;
   -webkit-user-select: none;
   user-select: none;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial,
     sans-serif;
   background-color: #242424;
 }
-
+.nav {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: white;
+  margin-top: -10px;
+  margin-left: -10px;
+  margin-right: -10px;
+  display: flex;
+}
 .container {
   justify-content: center;
   align-items: center;
   text-align: center;
   color: white;
 }
-
-.container .title {
-  font-size: 70px;
-  font-weight: bold;
-  text-transform: uppercase;
-  background-image: linear-gradient(45deg, #553c9a, #ee4b2b);
-  color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 .mode-buttons button {
   padding: 20px;
   font-size: 1.5rem;
