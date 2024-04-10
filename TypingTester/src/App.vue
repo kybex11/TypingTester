@@ -1,7 +1,7 @@
 <template>
   <div class="nav">
     <h1>Spelling Tester</h1>
-      <div class="mode-buttons">
+    <div class="mode-buttons">
       <button @click="changeLang()">Change Language: {{ language }}</button>
       <button @click="setLowerCase()">Up Case</button>
       <button @click="setMode('easy')">Easy Mode</button>
@@ -224,6 +224,16 @@ export default {
         'any'
       ]
       const words = [
+        'при',
+        'стать',
+        'два',
+        'жизнь',
+        'весь',
+        'начало',
+        'для',
+        'выйти',
+        'свой',
+        'в',
         'что',
         'слово',
         'сразу',
