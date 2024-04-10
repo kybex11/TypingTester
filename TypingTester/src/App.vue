@@ -2,14 +2,15 @@
   <div class="container" v-if="score > 0">
     <h1 class="title">Typing Tester</h1>
     <h2>{{ status }}</h2>
-    <h2>Ranked {{score}}</h2>
+    <h2>Ranked {{ score }}</h2>
     <h2>Current mode: {{ mode }}</h2>
     <br />
     <div class="mode-buttons">
+      <button @click="changeLang()">Change Language: {{ language }}</button>
       <button @click="setLowerCase()">Up Case</button>
       <button @click="setMode('easy')">Easy Mode</button>
-      <button @click="setMode('hard')">Hard Mode</button>
-      <button @click="enable()">{{rankedText}}</button>
+      <button @click="setMode('hard')" v-if="hard_mode_button_visiblity">Hard Mode</button>
+      <button @click="enable()">{{ rankedText }}</button>
       <button @click="resetText()">Reset</button>
     </div>
     <h1>
@@ -26,7 +27,7 @@
   </div>
   <div class="else-container" v-else>
     <h1>Game Over!</h1>
-    <br>
+    <br />
     <button @click="try_again()">Try again</button>
   </div>
 </template>
@@ -37,37 +38,49 @@ export default {
       generatedSpecificText: this.generateText(),
       symbolIndex: 0,
       userTypedText: '',
+      language: 'russian',
       status: 'Not started',
       hard_word: '',
       rankedText: 'Ranked Disabled',
       lower_case: false,
+      hard_mode_button_visiblity: true,
       mode: '',
       enabled: false,
-      score: 100,
+      score: 100
     }
   },
   mounted() {
     window.addEventListener('keydown', (e) => this.keydownHandle(e))
   },
   methods: {
-    enable() {
-      this.rankedText = "Ranked Enabled"
-      this.enabled = !this.enabled;
-      if (!this.enabled) {
-        this.rankedText = "Ranked Disabled"
+    changeLang() {
+      if (this.language == 'russian') {
+        this.language = 'english'
+        this.hard_mode_button_visiblity = false
+        this.setMode('easy')
+      } else if (this.language == 'english') {
+        this.language = 'russian'
+        this.hard_mode_button_visiblity = true
       }
-      this.score = 100;
-      this.userTypedText = '';
-      this.generatedSpecificText = this.generateText();
-      this.symbolIndex = 0;
-      this.status = 'Not started';
+    },
+    enable() {
+      this.rankedText = 'Ranked Enabled'
+      this.enabled = !this.enabled
+      if (!this.enabled) {
+        this.rankedText = 'Ranked Disabled'
+      }
+      this.score = 100
+      this.userTypedText = ''
+      this.generatedSpecificText = this.generateText()
+      this.symbolIndex = 0
+      this.status = 'Not started'
     },
     try_again() {
-      this.score = 100;
-      this.userTypedText = '';
-      this.generatedSpecificText = this.generateText();
-      this.symbolIndex = 0;
-      this.status = 'Not started';
+      this.score = 100
+      this.userTypedText = ''
+      this.generatedSpecificText = this.generateText()
+      this.symbolIndex = 0
+      this.status = 'Not started'
     },
     setLowerCase() {
       this.lower_case = !this.lower_case
@@ -97,111 +110,215 @@ export default {
       } else {
         this.status = 'Error...'
         if (this.enabled) {
-          this.score-=1;
+          this.score -= 1
         }
         this.symbolIndex++
         this.userTypedText += ' '
       }
     },
     generateText() {
-      const words = [
-        'что',
-        'слово',
-        'сразу',
-        'нет',
-        'казаться',
-        'понять',
-        'свой',
-        'ты',
-        'на',
-        'твой',
-        'по',
-        'который',
-        'ведь',
-        'иметь',
-        'здесь',
-        'никто',
-        'а',
-        'голова',
-        'сразу',
-        'город',
-        'стол',
-        'между',
-        'и',
-        'понимать',
-        'этот',
-        'человек',
-        'для',
-        'себя',
-        'да',
-        'оно',
-        'жизнь',
-        'успех',
-        'телефон',
-        'стул',
-        'диван',
-        'купить',
-        'народ',
-        'холодный',
-        'теплый',
-        'горячий',
-        'водка',
-        'день',
-        'дело',
-        'вид',
-        'время',
-        'вопрос',
-        'конец',
-        'друг',
-        'работа',
-        'мир',
-        'раз',
-        'ребенок',
-        'рука',
-        'сила',
-        'слово',
-        'случай',
-        'сторона',
-        'страна',
-        'человек',
-        'быть',
-        'взять',
-        'видеть',
-        'говорить',
-        'дать',
-        'думать',
-        'знать',
-        'мочь',
-        'оказать',
-        'оказаться',
-        'получить',
-        'понять',
-        'сделать',
-        'разработчик',
-        'возможность',
-        'игры',
-        'убивать',
-        'ребенок',
-        'бабушка',
-        'мама',
-        'папа',
-        'дедушка',
-        'уролог',
-        'врач',
-        'больничный',
-        'станция',
-        'поезд',
-        'палата',
-        'еда',
-        'каша',
-        'картошка',
-        'яблоко',
-        'молока',
-        'красный',
-        'синий',
-        'зеленый',
-        'белый'
+      const english_words = [
+        'i',
+        'he',
+        'his',
+        'that',
+        'was',
+        'they',
+        'was',
+        'they',
+        'as',
+        'for',
+        'on',
+        'are',
+        'with',
+        'be',
+        'at',
+        'one',
+        'have',
+        'this',
+        'from',
+        'by',
+        'hot',
+        'word',
+        'but',
+        'what',
+        'some',
+        'is',
+        'it',
+        'you',
+        'or',
+        'had',
+        'the',
+        'of',
+        'to',
+        'and',
+        'a',
+        'in',
+        'we',
+        'can',
+        'out',
+        'other',
+        'were',
+        'which',
+        'their',
+        'time',
+        'if',
+        'will',
+        'how',
+        'said',
+        'an',
+        'each',
+        'tell',
+        'does',
+        'set',
+        'three',
+        'want',
+        'air',
+        'well',
+        'also',
+        'play',
+        'small',
+        'end',
+        'put',
+        'home',
+        'read',
+        'hand',
+        'port',
+        'large',
+        'spell',
+        'add',
+        'even',
+        'land',
+        'here',
+        'must',
+        'big',
+        'high',
+        'such',
+        'follow',
+        'act',
+        'why',
+        'ask',
+        'men',
+        'change',
+        'went',
+        'light',
+        'kind',
+        'off',
+        'need',
+        'house',
+        'picture',
+        'try',
+        'us',
+        'again',
+        'animal',
+        'point',
+        'mother',
+        'world',
+        'near',
+        'build',
+        'self',
+        'earth',
+        'father',
+        'any'
       ]
+      const words = [
+  'что',
+  'слово',
+  'сразу',
+  'нет',
+  'казаться',
+  'понять',
+  'свой',
+  'ты',
+  'на',
+  'твой',
+  'по',
+  'который',
+  'ведь',
+  'иметь',
+  'здесь',
+  'никто',
+  'а',
+  'голова',
+  'сразу',
+  'город',
+  'стол',
+  'между',
+  'и',
+  'понимать',
+  'этот',
+  'человек',
+  'для',
+  'себя',
+  'да',
+  'оно',
+  'жизнь',
+  'успех',
+  'телефон',
+  'стул',
+  'диван',
+  'купить',
+  'народ',
+  'холодный',
+  'теплый',
+  'горячий',
+  'водка',
+  'день',
+  'дело',
+  'вид',
+  'время',
+  'вопрос',
+  'конец',
+  'друг',
+  'работа',
+  'мир',
+  'раз',
+  'ребенок',
+  'рука',
+  'сила',
+  'слово',
+  'случай',
+  'сторона',
+  'страна',
+  'человек',
+  'быть',
+  'взять',
+  'видеть',
+  'говорить',
+  'дать',
+  'думать',
+  'знать',
+  'мочь',
+  'оказать',
+  'оказаться',
+  'получить',
+  'понять',
+  'сделать',
+  'разработчик',
+  'возможность',
+  'игры',
+  'убивать',
+  'ребенок',
+  'бабушка',
+  'мама',
+  'папа',
+  'дедушка',
+  'уролог',
+  'врач',
+  'больничный',
+  'станция',
+  'поезд',
+  'палата',
+  'еда',
+  'каша',
+  'картошка',
+  'яблоко',
+  'молока',
+  'красный',
+  'синий',
+  'зеленый',
+  'белый'
+]
       const hard_words = [
         'бесспорно',
         'трансцендентный',
@@ -238,27 +355,38 @@ export default {
         'надеяться',
         'намерение'
       ]
-      const randomWords = []
+
+      const randomWords = [];
       for (let i = 0; i < 10; i++) {
-        const randomIndex = Math.floor(Math.random() * words.length)
-        let word = words[randomIndex]
-        for (let i = 0; i < 10; i++) {
-          const random_hard_index = Math.floor(Math.random() * hard_words.length)
-          this.hard_word = hard_words[random_hard_index]
+        let selectedWord;
+        if (this.language == "russian") {
+          selectedWord = words[Math.floor(Math.random() * words.length)];
+        } else if (this.language == "english") {
+          selectedWord = english_words[Math.floor(Math.random() * english_words.length)];
         }
+
         if (this.mode === 'hard') {
-          if (this.lower_case) {
-            this.hard_word = this.hard_word.charAt(0).toUpperCase() + this.hard_word.slice(1)
-          }
-          randomWords.push(this.hard_word)
+          selectedWord = hard_words[Math.floor(Math.random() * hard_words.length)];
         } else if (this.mode === 'easy') {
-          if (this.lower_case) {
-            word = word.charAt(0).toUpperCase() + word.slice(1)
+          if (this.language == "russian") {
+            if (this.lower_case) {
+              selectedWord = selectedWord.charAt(0).toUpperCase() + selectedWord.slice(1);
+            } else {
+              selectedWord = selectedWord.charAt(0) + selectedWord.slice(1);
+            }
+
+          } else if (this.language == "english") {
+            if (this.lower_case) {
+              selectedWord = selectedWord.charAt(0).toUpperCase() + selectedWord.slice(1);
+            } else {
+              selectedWord = selectedWord.charAt(0) + selectedWord.slice(1);
+            }
           }
-          randomWords.push(word)
         }
+
+        randomWords.push(selectedWord);
       }
-      return randomWords.join(' ')
+      return randomWords.join(' ');
     }
   }
 }
@@ -270,9 +398,11 @@ export default {
   text-align: center;
   align-items: center;
 }
+
 .else-container h1 {
   font-size: 5rem;
 }
+
 .else-container button {
   -webkit-user-select: none;
   user-select: none;
@@ -282,13 +412,16 @@ export default {
   border-radius: 10px;
   cursor: pointer;
 }
+
 .highlighted {
   background-color: yellow;
   color: black;
 }
+
 .incorrect {
   color: red;
 }
+
 body {
   -webkit-user-select: none;
   user-select: none;
@@ -296,6 +429,7 @@ body {
     sans-serif;
   background-color: #242424;
 }
+
 .container {
   justify-content: center;
   align-items: center;
@@ -307,7 +441,7 @@ body {
   font-size: 70px;
   font-weight: bold;
   text-transform: uppercase;
-  background-image: linear-gradient(45deg, #553c9a, #ee4b2b);;
+  background-image: linear-gradient(45deg, #553c9a, #ee4b2b);
   color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
