@@ -368,20 +368,11 @@ export default {
         if (this.mode === 'hard') {
           selectedWord = hard_words[Math.floor(Math.random() * hard_words.length)];
         } else if (this.mode === 'easy') {
-          if (this.language == "russian") {
-            if (this.lower_case) {
+          if (this.lower_case) {
               selectedWord = selectedWord.charAt(0).toUpperCase() + selectedWord.slice(1);
             } else {
               selectedWord = selectedWord.charAt(0) + selectedWord.slice(1);
             }
-
-          } else if (this.language == "english") {
-            if (this.lower_case) {
-              selectedWord = selectedWord.charAt(0).toUpperCase() + selectedWord.slice(1);
-            } else {
-              selectedWord = selectedWord.charAt(0) + selectedWord.slice(1);
-            }
-          }
         }
 
         randomWords.push(selectedWord);
