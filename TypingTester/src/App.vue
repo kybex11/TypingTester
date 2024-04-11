@@ -2,7 +2,7 @@
   <div class="nav">
     <h1>Spelling Tester</h1>
     <div class="mode-buttons">
-      <button @click="changeLang()">Change Language: {{ language }}</button>
+      <button @click="changeLang()">{{ language }}</button>
       <button @click="setLowerCase()">Up Case</button>
       <button @click="setMode('easy')">Easy Mode</button>
       <button @click="setMode('hard')" v-if="hard_mode_button_visiblity">Hard Mode</button>
@@ -101,6 +101,11 @@ export default {
       this.status = 'Not started'
     },
     keydownHandle(e) {
+      if (e.shiftKey && e.key === 'Enter') {
+        e.preventDefault();
+        this.resetText();
+        return;
+      }
       if (e.key === 'CapsLock') {
         e.preventDefault()
         return
