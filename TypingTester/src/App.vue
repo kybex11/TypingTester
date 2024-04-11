@@ -1,36 +1,46 @@
 <template>
-  <div class="nav">
-    <h1>Spelling Tester</h1>
-    <div class="mode-buttons">
-      <button @click="changeLang()">{{ language }}</button>
-      <button @click="setLowerCase()">Up Case</button>
-      <button @click="setMode('easy')">Easy Mode</button>
-      <button @click="setMode('hard')" v-if="hard_mode_button_visiblity">Hard Mode</button>
-      <button @click="enable()">{{ rankedText }}</button>
-      <button @click="resetText()">Reset</button>
+  <div class="main" ref="background">
+    <div class="view">
+      <div class="overlay" @click="docs()" v-if="isDocsOpen"></div>
+      <div class="nav">
+        <h1>Spelling Tester</h1>
+        <div class="mode-buttons">
+          <button @click="docs()">Docs</button>
+          <button @click="changeLang()">{{ language }}</button>
+          <button @click="setLowerCase()">Up Case</button>
+          <button @click="setMode('easy')">Easy Mode</button>
+          <button @click="setMode('hard')" v-if="hard_mode_button_visiblity">Hard Mode</button>
+          <button @click="enable()">{{ rankedText }}</button>
+          <button @click="resetText()">Reset</button>
+        </div>
+      </div>
+      <div class="container" v-if="score > 0">
+        <h2>{{ status }}</h2>
+        <h2>Ranked {{ score }}</h2>
+        <h2>Current mode: {{ mode }}</h2>
+        <br />
+        <h1>
+          <span v-for="(letter, index) in generatedSpecificText" :key="index">
+            <span
+              :class="{
+                highlighted: index === symbolIndex,
+                incorrect: index < userTypedText.length && letter !== userTypedText[index]
+              }"
+              >{{ letter }}</span
+            >
+          </span>
+        </h1>
+      </div>
+      <div class="else-container" v-else>
+        <h1>Game Over!</h1>
+        <br />
+        <button @click="try_again()">Try again</button>
+      </div>
     </div>
-  </div>
-  <div class="container" v-if="score > 0">
-    <h2>{{ status }}</h2>
-    <h2>Ranked {{ score }}</h2>
-    <h2>Current mode: {{ mode }}</h2>
-    <br />
-    <h1>
-      <span v-for="(letter, index) in generatedSpecificText" :key="index">
-        <span
-          :class="{
-            highlighted: index === symbolIndex,
-            incorrect: index < userTypedText.length && letter !== userTypedText[index]
-          }"
-          >{{ letter }}</span
-        >
-      </span>
-    </h1>
-  </div>
-  <div class="else-container" v-else>
-    <h1>Game Over!</h1>
-    <br />
-    <button @click="try_again()">Try again</button>
+    <div class="docs-view" v-if="isDocsOpen">
+    <h1>For reset text</h1>
+    <h2>Shift+Enter</h2>
+    </div>
   </div>
 </template>
 <script>
@@ -40,6 +50,7 @@ export default {
       generatedSpecificText: this.generateText(),
       symbolIndex: 0,
       userTypedText: '',
+      isDocsOpen: false,
       language: 'russian',
       status: 'Not started',
       hard_word: '',
@@ -76,6 +87,15 @@ export default {
       this.generatedSpecificText = this.generateText()
       this.symbolIndex = 0
       this.status = 'Not started'
+    },
+    docs() {
+      this.isDocsOpen = !this.isDocsOpen;
+
+      if (this.isDocsOpen) {
+        this.$refs.background.classList.add('blur');
+      } else {
+        this.$refs.background.classList.remove('blur');
+      }
     },
     try_again() {
       this.score = 100
@@ -400,6 +420,29 @@ export default {
 }
 </script>
 <style>
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 99;
+}
+.blur > :not(.docs-view) {
+  filter: blur(5px);
+}
+.docs-view {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  z-index:100;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
 .else-container {
   color: red;
   justify-content: center;
