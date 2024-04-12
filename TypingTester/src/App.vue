@@ -3,7 +3,7 @@
     <div class="view">
       <div class="overlay" @click="docs()" v-if="isDocsOpen"></div>
       <div class="nav">
-        <h1>Spelling Tester</h1>
+        <h1>Spelling Tester <span class="span1">| Hosted by Aeza</span></h1>
         <div class="mode-buttons">
           <button @click="docs()">Docs</button>
           <button @click="changeLang()">{{ language }}</button>
@@ -490,6 +490,9 @@ body {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial,
     sans-serif;
   background-color: #242424;
+}
+.span1 {
+  font-size: 1rem;
 }
 .nav {
   justify-content: center;
