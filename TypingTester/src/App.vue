@@ -507,6 +507,10 @@ body {
   text-align: center;
   color: white;
 }
+.mode-buttons {
+  -webkit-user-select: none;
+  user-select:none;
+}
 .mode-buttons button {
   padding: 20px;
   font-size: 1.5rem;
@@ -514,5 +518,9 @@ body {
   background-color: white;
   color: black;
   cursor: pointer;
+  outline: none;
+}
+.mode-buttons button:focus {
+  outline: none;
 }
 </style>
