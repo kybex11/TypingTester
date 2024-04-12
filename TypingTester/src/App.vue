@@ -12,6 +12,7 @@
           <button @click="setMode('hard')" v-if="hard_mode_button_visiblity">Hard Mode</button>
           <button @click="enable()">{{ rankedText }}</button>
           <button @click="resetText()">Reset</button>
+          <button @click="source()">Source</button>
         </div>
       </div>
       <div class="container" v-if="score > 0">
@@ -68,6 +69,9 @@ export default {
     this.generatedSpecificText = this.generateText();
   },
   methods: {
+    source() {
+      window.location.href = 'https://github.com/kybex11/TypingTester';
+    },
     changeLang() {
       if (this.language == 'russian') {
         this.language = 'english'
@@ -77,7 +81,7 @@ export default {
         this.language = 'russian'
         this.hard_mode_button_visiblity = true
       }
-    }, // fix shift is symbol.
+    },
     enable() {
       this.rankedText = 'Ranked Enabled'
       this.enabled = !this.enabled
@@ -123,6 +127,10 @@ export default {
       this.status = 'Not started'
     },
     keydownHandle(e) {
+      if (e.shiftKey) {
+        e.preventDefault();
+        return;
+      }
       if (e.shiftKey && e.key === 'Enter') {
         e.preventDefault();
         this.resetText();
