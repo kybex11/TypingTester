@@ -64,6 +64,8 @@ export default {
   },
   mounted() {
     window.addEventListener('keydown', (e) => this.keydownHandle(e))
+    this.setMode('easy');
+    this.generatedSpecificText = this.generateText();
   },
   methods: {
     changeLang() {
@@ -75,7 +77,7 @@ export default {
         this.language = 'russian'
         this.hard_mode_button_visiblity = true
       }
-    },
+    }, // fix shift is symbol.
     enable() {
       this.rankedText = 'Ranked Enabled'
       this.enabled = !this.enabled
