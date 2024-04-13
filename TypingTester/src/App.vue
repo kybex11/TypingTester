@@ -16,9 +16,12 @@
         </div>
       </div>
       <div class="container" v-if="score > 0">
+      <div class="result-container">
         <h2>{{ status }}</h2>
         <h2>Ranked {{ score }}</h2>
         <h2>Current mode: {{ mode }}</h2>
+      </div>
+
         <br />
         <h1>
           <span v-for="(letter, index) in generatedSpecificText" :key="index">
@@ -42,7 +45,7 @@
     <h1>For reset text</h1>
     <h2>Shift+Enter</h2>
     <h1>Problem</h1>
-    <h2>Hard mode working only in russian</h2>
+    <h2>Hard mode working only in russian </h2>
     </div>
   </div>
 </template>
@@ -430,6 +433,15 @@ export default {
 }
 </script>
 <style>
+.result-container {
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  text-align:center;
+}
+.result-container h2 {
+  margin: 10px;
+}
 .overlay {
   position: fixed;
   top: 0;
