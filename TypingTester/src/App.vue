@@ -18,7 +18,7 @@
       <div class="container" v-if="score > 0">
       <div class="result-container">
         <h2>{{ status }}</h2>
-        <h2>Ranked {{ score }}</h2>
+        <h2 v-if="enabled">Ranked: {{ score }}</h2>
         <h2>Current mode: {{ mode }}</h2>
       </div>
 
