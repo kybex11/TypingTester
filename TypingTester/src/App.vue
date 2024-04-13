@@ -9,7 +9,7 @@
           <button @click="changeLang()">{{ language }}</button>
           <button @click="setLowerCase()">Up Case</button>
           <button @click="setMode('easy')">Easy Mode</button>
-          <button @click="setMode('hard')" v-if="hard_mode_button_visiblity">Hard Mode</button>
+          <button @click="setMode('hard')">Hard Mode</button>
           <button @click="enable()">{{ rankedText }}</button>
           <button @click="resetText()">Reset</button>
           <button @click="source()">Source</button>
@@ -41,6 +41,8 @@
     <div class="docs-view" v-if="isDocsOpen">
     <h1>For reset text</h1>
     <h2>Shift+Enter</h2>
+    <h1>Problem</h1>
+    <h2>Hard mode working only in russian</h2>
     </div>
   </div>
 </template>
@@ -57,7 +59,6 @@ export default {
       hard_word: '',
       rankedText: 'Ranked Disabled',
       lower_case: false,
-      hard_mode_button_visiblity: true,
       mode: '',
       enabled: false,
       score: 100
@@ -75,11 +76,10 @@ export default {
     changeLang() {
       if (this.language == 'russian') {
         this.language = 'english'
-        this.hard_mode_button_visiblity = false
+
         this.setMode('easy')
       } else if (this.language == 'english') {
         this.language = 'russian'
-        this.hard_mode_button_visiblity = true
       }
     },
     enable() {
