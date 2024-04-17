@@ -34,6 +34,7 @@
           </span>
         </h1>
         <br>
+        <div class="keyboard-en" v-if="language == 'english'">
         <div class="keyboard-overlay">
         <span data-key="q">Q</span>
         <span data-key="w">W</span>
@@ -72,6 +73,48 @@
         <span data-key="/">/?</span>
         <br>
         <span data-key=" " class="space-span"></span>
+        </div>
+        </div>
+        <div class="keyboard-ru" v-if="language == 'russian'">
+        <div class="keyboard-overlay">
+        <span data-key="й">Й</span>
+        <span data-key="ц">Ц</span>
+        <span data-key="у">У</span>
+        <span data-key="к">К</span>
+        <span data-key="е">Е</span>
+        <span data-key="н">Н</span>
+        <span data-key="г">Г</span>
+        <span data-key="ш">Ш</span>
+        <span data-key="щ">Щ</span>
+        <span data-key="з">З</span>
+        <span data-key="х">Х</span>
+        <span data-key="ъ">Ъ</span>
+        <br>
+        <span data-key="ф">Ф</span>
+        <span data-key="ы">Ы</span>
+        <span data-key="в">В</span>
+        <span data-key="а">А</span>
+        <span data-key="п">П</span>
+        <span data-key="р">Р</span>
+        <span data-key="о">О</span>
+        <span data-key="л">Л</span>
+        <span data-key="д">Д</span>
+        <span data-key="ж">Ж</span>
+        <span data-key="э">Э</span>
+        <br>
+        <span data-key="я">Я</span>
+        <span data-key="ч">Ч</span>
+        <span data-key="с">С</span>
+        <span data-key="м">М</span>
+        <span data-key="и">И</span>
+        <span data-key="т">Т</span>
+        <span data-key="ь">Ь</span>
+        <span data-key="б">Б</span>
+        <span data-key="ю">Ю</span>
+        <span data-key=".">.</span>
+        <br>
+        <span data-key=" " class="space-span"></span>
+        </div>
         </div>
       </div>
       <div class="else-container" v-else>
