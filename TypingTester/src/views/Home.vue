@@ -21,7 +21,6 @@
         <h2 v-if="enabled">Ranked: {{ score }}</h2>
         <h2>Current mode: {{ mode }}</h2>
       </div>
-
         <br />
         <h1>
           <span v-for="(letter, index) in generatedSpecificText" :key="index">
