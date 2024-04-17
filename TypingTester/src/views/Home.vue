@@ -124,8 +124,8 @@
       </div>
     </div>
     <div class="docs-view" v-if="isDocsOpen">
-    <h1>For reset text</h1>
-    <h2>Shift+Enter</h2>
+    <h1>Reset text</h1>
+    <h2>Enter</h2>
     <h1>Problem</h1>
     <h2>Hard mode working only in russian </h2>
     </div>
@@ -174,10 +174,7 @@ export default {
         this.rankedText = 'Ranked Disabled'
       }
       this.score = 100
-      this.userTypedText = ''
-      this.generatedSpecificText = this.generateText()
-      this.symbolIndex = 0
-      this.status = 'Not started'
+      this.resetText();
     },
     docs() {
       this.isDocsOpen = !this.isDocsOpen;
@@ -190,20 +187,15 @@ export default {
     },
     try_again() {
       this.score = 100
-      this.userTypedText = ''
-      this.generatedSpecificText = this.generateText()
-      this.symbolIndex = 0
-      this.status = 'Not started'
+      this.resetText();
     },
     setLowerCase() {
       this.lower_case = !this.lower_case
-      this.userTypedText = ''
-      this.generatedSpecificText = this.generateText()
+      this.resetText();
     },
     setMode(mode) {
       this.mode = mode
-      this.userTypedText = ''
-      this.generatedSpecificText = this.generateText()
+      this.resetText();
     },
     resetText() {
       this.generatedSpecificText = this.generateText()
@@ -225,9 +217,9 @@ export default {
         e.preventDefault();
         return;
       }
-      if (e.shiftKey && e.key === 'Enter') {
-        e.preventDefault();
+      if (e.key === 'Enter') {
         this.resetText();
+        e.preventDefault();
         return;
       }
       if (e.key === 'CapsLock') {
