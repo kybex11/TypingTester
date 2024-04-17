@@ -35,43 +35,43 @@
         </h1>
         <br>
         <div class="keyboard-overlay">
-        <h1>Current overlay in development</h1>
-        <span>Q</span>
-        <span>W</span>
-        <span>E</span>
-        <span>R</span>
-        <span>T</span>
-        <span>Y</span>
-        <span>U</span>
-        <span>I</span>
-        <span>O</span>
-        <span>P</span>
-        <span>[{</span>
-        <span>]}</span>
+        <span data-key="q">Q</span>
+        <span data-key="w">W</span>
+        <span data-key="e">E</span>
+        <span data-key="r">R</span>
+        <span data-key="t">T</span>
+        <span data-key="y">Y</span>
+        <span data-key="u">U</span>
+        <span data-key="i">I</span>
+        <span data-key="o">O</span>
+        <span data-key="p">P</span>
+        <span data-key="[">[{</span>
+        <span data-key="]">]}</span>
         <br>
-        <span>A</span>
-        <span>S</span>
-        <span>D</span>
-        <span>F</span>
-        <span>G</span>
-        <span>H</span>
-        <span>J</span>
-        <span>K</span>
-        <span>L</span>
-        <span>;:</span>
-        <span>'"</span>
+        <span data-key="a">A</span>
+        <span data-key="s">S</span>
+        <span data-key="d">D</span>
+        <span data-key="f">F</span>
+        <span data-key="g">G</span>
+        <span data-key="h">H</span>
+        <span data-key="j">J</span>
+        <span data-key="k">K</span>
+        <span data-key="l">L</span>
+        <span data-key=";">;:</span>
+        <span data-key="'">'"</span>
         <br>
-        <span>Z</span>
-        <span>X</span>
-        <span>C</span>
-        <span>V</span>
-        <span>B</span>
-        <span>N</span>
-        <span>M</span>
-        <span>,<</span>
-        <span>.></span>
-        <span>/?</span>
-        <span></span>
+        <span data-key="z">Z</span>
+        <span data-key="x">X</span>
+        <span data-key="c">C</span>
+        <span data-key="v">V</span>
+        <span data-key="b">B</span>
+        <span data-key="n">N</span>
+        <span data-key="m">M</span>
+        <span data-key=",">,<</span>
+        <span data-key=".">.></span>
+        <span data-key="/">/?</span>
+        <br>
+        <span data-key=" " class="space-span"></span>
         </div>
       </div>
       <div class="else-container" v-else>
@@ -169,6 +169,15 @@ export default {
       this.status = 'Not started'
     },
     keydownHandle(e) {
+      const keyElement = document.querySelector(`.keyboard-overlay span[data-key="${e.key.toLowerCase()}"]`);
+
+      if (keyElement){
+        keyElement.classList.add('keypressed');
+
+        setTimeout(() => {
+          keyElement.classList.remove('keypressed');
+        }, 100);
+      }
       if (e.shiftKey) {
         e.preventDefault();
         return;
@@ -472,8 +481,21 @@ export default {
 }
 </script>
 <style>
-.key_press {
-  color: red;
+.keypressed {
+  background-color: white;
+  color: black;
+}
+.space-span {
+  padding: 20px 80px;
+  width: 350px;
+  height: 19px;
+}
+.keyboard-overlay span {
+  display: inline-block;
+  margin: 5px;
+  padding: 20px 20px;
+  border-radius: 5px;
+  border-style: solid;
 }
 .result-container {
   display: flex;
