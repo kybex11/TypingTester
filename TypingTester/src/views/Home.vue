@@ -161,10 +161,11 @@ export default {
     changeLang() {
       if (this.language == 'russian') {
         this.language = 'english'
-
+        this.resetText();
         this.setMode('easy')
       } else if (this.language == 'english') {
         this.language = 'russian'
+        this.resetText();
       }
     },
     enable() {
