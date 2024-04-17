@@ -34,6 +34,46 @@
             >
           </span>
         </h1>
+        <br>
+        <div class="keyboard-overlay">
+        <h1>Current overlay in development</h1>
+        <span>Q</span>
+        <span>W</span>
+        <span>E</span>
+        <span>R</span>
+        <span>T</span>
+        <span>Y</span>
+        <span>U</span>
+        <span>I</span>
+        <span>O</span>
+        <span>P</span>
+        <span>[{</span>
+        <span>]}</span>
+        <br>
+        <span>A</span>
+        <span>S</span>
+        <span>D</span>
+        <span>F</span>
+        <span>G</span>
+        <span>H</span>
+        <span>J</span>
+        <span>K</span>
+        <span>L</span>
+        <span>;:</span>
+        <span>'"</span>
+        <br>
+        <span>Z</span>
+        <span>X</span>
+        <span>C</span>
+        <span>V</span>
+        <span>B</span>
+        <span>N</span>
+        <span>M</span>
+        <span>,<</span>
+        <span>.></span>
+        <span>/?</span>
+        <span></span>
+        </div>
       </div>
       <div class="else-container" v-else>
         <h1>Game Over!</h1>
@@ -433,6 +473,9 @@ export default {
 }
 </script>
 <style>
+.key_press {
+  color: red;
+}
 .result-container {
   display: flex;
   justify-content: center;
