@@ -2,4 +2,4 @@
 
 todo: create theme changer
 
-Bug hunter's: Alina Bogdanova, Tw1stPl4y
+Bug hunter's: Alinna Bogdanova, Tw1stPl4y
