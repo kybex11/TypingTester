@@ -125,7 +125,7 @@
     </div>
     <div class="docs-view" v-if="isDocsOpen">
     <h1>Reset text</h1>
-    <h2>Enter</h2>
+    <h2>Press Enter</h2>
     <h1>Problem</h1>
     <h2>Hard mode working only in russian </h2>
     </div>
@@ -232,7 +232,7 @@ export default {
         this.symbolIndex++
         this.userTypedText += e.key
       } else {
-        this.status = 'Error...'
+        this.status = 'Error...';
         if (this.enabled) {
           this.score -= 1
         }
@@ -518,6 +518,7 @@ export default {
 </script>
 <style>
 .keypressed {
+  transition: background-color 0.1 ease, color 0.1 ease;
   background-color: white;
   color: black;
 }
