@@ -518,7 +518,7 @@ export default {
 </script>
 <style>
 .keypressed {
-  transition: background-color 0.1 ease, color 0.1 ease;
+  transition: background-color 0.4 ease, color 0.7 ease;
   background-color: white;
   color: black;
 }
