@@ -1,6 +1,6 @@
 <template>
   <div class="main" ref="background">
-    <div class="view">
+    <div class="view" ref="view">
       <div class="overlay" @click="docs()" v-if="isDocsOpen"></div>
       <div class="nav">
         <h1>Spelling Tester <span class="span1">| Hosted by Aeza</span></h1>
@@ -13,6 +13,7 @@
           <button @click="enable()">{{ rankedText }}</button>
           <button @click="resetText()">Reset</button>
           <button @click="source()">Source</button>
+          <button @click="invert()">beta</button>
         </div>
       </div>
       <div class="container" v-if="score > 0">
@@ -146,7 +147,8 @@ export default {
       lower_case: false,
       mode: '',
       enabled: false,
-      score: 100
+      score: 100,
+      invert: false,
     }
   },
   mounted() {
@@ -184,6 +186,16 @@ export default {
         this.$refs.background.classList.add('blur');
       } else {
         this.$refs.background.classList.remove('blur');
+      }
+    },
+    invert() {
+      const view = document.querySelector('body');
+      this.inverted = !this.inverted;
+
+      if (this.inverted) {
+        view.classList.add('inverted');
+      } else {
+        view.classList.remove('inverted');
       }
     },
     try_again() {
@@ -517,16 +529,30 @@ export default {
 }
 </script>
 <style>
-.keypressed {
+:root {
+  --black: black;
+  --white: white;
+}
+
+body {
   transition: background-color 0.4 ease, color 0.7 ease;
-  background-color: white;
-  color: black;
+  overflow: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  background-color: #242424;
 }
-.space-span {
-  padding: 20px 80px;
-  width: 350px;
-  height: 19px;
+
+.inverted {
+  --black: white;
+  --white: black;
 }
+
+.keypressed {
+  background-color: var(--black);
+  color: var(--black);
+}
+
 .keyboard-overlay span {
   display: inline-block;
   margin: 5px;
@@ -534,38 +560,33 @@ export default {
   border-radius: 5px;
   border-style: solid;
 }
-.result-container {
-  display: flex;
-  justify-content: center;
-  align-items:center;
-  text-align:center;
-}
-.result-container h2 {
-  margin: 10px;
-}
+
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 99;
 }
+
 .blur > :not(.docs-view) {
   filter: blur(5px);
 }
+
 .docs-view {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
-  z-index:100;
-  background-color: white;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  background-color: var(--white);
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 .else-container {
   color: red;
   justify-content: center;
@@ -589,54 +610,43 @@ export default {
 
 .highlighted {
   background-color: yellow;
-  color: black;
+  color: var(--black);
 }
 
 .incorrect {
   color: red;
 }
 
-body {
-  overflow: hidden;
-  -webkit-user-select: none;
-  user-select: none;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial,
-    sans-serif;
-  background-color: #242424;
-}
-.span1 {
-  font-size: 1rem;
-}
 .nav {
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: white;
+  background-color: var(--white);
   margin-top: -10px;
   margin-left: -10px;
   margin-right: -10px;
   display: flex;
 }
+
 .container {
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: white;
+  color: var(--white);
 }
-.mode-buttons {
-  -webkit-user-select: none;
-  user-select:none;
-}
+
 .mode-buttons button {
   padding: 20px;
   font-size: 1.5rem;
   border: none;
-  background-color: white;
-  color: black;
+  background-color: var(--white);
+  color: var(--black);
   cursor: pointer;
   outline: none;
 }
+
 .mode-buttons button:focus {
   outline: none;
 }
+
 </style>
