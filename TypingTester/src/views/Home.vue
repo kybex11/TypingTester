@@ -534,6 +534,10 @@ export default {
   --white: white;
 }
 
+.space-span {
+  width: 400px;
+  height: 20px;
+}
 body {
   transition: background-color 0.4 ease, color 0.7 ease;
   overflow: hidden;
@@ -549,7 +553,7 @@ body {
 }
 
 .keypressed {
-  background-color: var(--black);
+  background-color: var(--white);
   color: var(--black);
 }
 
