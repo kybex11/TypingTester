@@ -565,6 +565,10 @@ body {
   border-style: solid;
 }
 
+.span1 {
+  font-size: 1rem;
+}
+
 .overlay {
   position: fixed;
   top: 0;
