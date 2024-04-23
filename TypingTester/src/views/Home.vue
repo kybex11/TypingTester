@@ -555,6 +555,7 @@ export default {
   height: 20px;
 }
 body {
+  font-weight: 800;
   transition:
     background-color 0.4 ease,
     color 0.7 ease;
