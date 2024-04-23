@@ -201,16 +201,6 @@ export default {
         this.$refs.background.classList.remove("blur");
       }
     },
-    invert() {
-      const view = document.querySelector("body");
-      this.inverted = !this.inverted;
-
-      if (this.inverted) {
-        view.classList.add("inverted");
-      } else {
-        view.classList.remove("inverted");
-      }
-    },
     try_again() {
       this.score = 100;
       this.resetText();
