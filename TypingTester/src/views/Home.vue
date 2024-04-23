@@ -1,4 +1,4 @@
-<template>
+<template><!--create k02 overlay-->
   <div class="main" ref="background">
     <div class="view" ref="view">
       <div class="overlay" @click="docs()" v-if="isDocsOpen"></div>
@@ -17,7 +17,12 @@
         </div>
       </div>
       <div class="container" v-if="score > 0">
+      <br>
       <div class="result-container">
+<button @click="setWord('10')">10</button>
+<button @click="setWord('25')">25</button>
+<button @click="setWord('50')">50</button>
+<button @click="setWord('100')">100</button>
         <h2>{{ status }}</h2>
         <h2 v-if="enabled">Ranked: {{ score }}</h2>
         <h2>Current mode: {{ mode }}</h2>
@@ -145,6 +150,7 @@ export default {
       hard_word: '',
       rankedText: 'Ranked Disabled',
       lower_case: false,
+      default_words: 10,
       mode: '',
       enabled: false,
       score: 100,
@@ -157,6 +163,10 @@ export default {
     this.generatedSpecificText = this.generateText();
   },
   methods: {
+    setWord(val) {
+      this.default_words = val;
+      this.resetText();
+    },
     source() {
       window.location.href = 'https://github.com/kybex11/TypingTester';
     },
@@ -503,7 +513,7 @@ export default {
       ]
 
       const randomWords = []
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < this.default_words; i++) {
         let selectedWord
         if (this.language == 'russian') {
           selectedWord = words[Math.floor(Math.random() * words.length)]
@@ -529,6 +539,14 @@ export default {
 }
 </script>
 <style>
+.result-container button {
+  border:none;
+  background:none;
+  color: var(--white);
+  font-size:30px;
+  cursor:pointer;
+  margin-right:15px;
+}
 :root {
   --black: black;
   --white: white;
