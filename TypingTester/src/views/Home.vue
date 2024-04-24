@@ -169,6 +169,7 @@ export default {
   methods: {
     skerr() {
       this.skerror = !this.skerror;
+      this.resetText();
     },
     setWord(val) {
       this.default_words = val;
