@@ -14,7 +14,7 @@
           <button @click="enable()">{{ rankedText }}</button>
           <button @click="resetText()">Reset</button>
           <button @click="source()">Source</button>
-          <button @click="invert()">beta</button>
+          <button @click="skerr()">Practice add-on</button>
         </div>
       </div>
       <div class="container" v-if="score > 0">
@@ -151,6 +151,7 @@ export default {
       language: "russian",
       status: "Not started",
       hard_word: "",
+      skerror: false,
       rankedText: "Ranked Disabled",
       lower_case: false,
       default_words: 10,
@@ -166,6 +167,9 @@ export default {
     this.generatedSpecificText = this.generateText();
   },
   methods: {
+    skerr() {
+      this.skerror = !this.skerror;
+    },
     setWord(val) {
       this.default_words = val;
       this.resetText();
@@ -244,17 +248,31 @@ export default {
         e.preventDefault();
         return;
       }
-      if (e.key === this.generatedSpecificText[this.symbolIndex]) {
-        this.status = "Normaly...";
-        this.symbolIndex++;
-        this.userTypedText += e.key;
-      } else {
-        this.status = "Error...";
-        if (this.enabled) {
-          this.score -= 1;
+      if (!this.skerror) {
+        if (e.key === this.generatedSpecificText[this.symbolIndex]) {
+          this.status = "Normaly...";
+          this.symbolIndex++;
+          this.userTypedText += e.key;
+        } else {
+          this.status = "Error...";
+          if (this.enabled) {
+            this.score -= 1;
+          }
+          this.symbolIndex++;
+          this.userTypedText += " ";
         }
-        this.symbolIndex++;
-        this.userTypedText += " ";
+      } else {
+          if (e.key === this.generatedSpecificText[this.symbolIndex]) {
+          this.status = "Normaly...";
+          this.symbolIndex++;
+          this.userTypedText += e.key;
+        } else {
+          this.status = "Error...";
+          if (this.enabled) {
+            this.score -= 1;
+          }
+
+        }
       }
     },
     generateText() {
