@@ -4,7 +4,7 @@
 На Vue + Vite + VueRouter
 С поддержкой aeza, regru
 
-todo: create theme changer, исправить баг связанный с тем что после того как ты напечатал текст статус начинает становиться error и надо сделать ended
+todo: create theme changer, исправить баг связанный с тем что после того как ты напечатал текст статус начинает становиться error и надо сделать ended, rebuild with astro
 
 Баг хантеры: Alinna Bogdanova, Tw1stPl4y
 
