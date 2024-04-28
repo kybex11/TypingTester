@@ -655,6 +655,14 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.docs-view button {
+  border: none;
+  background: none;
+  padding: 10px 10px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
 .else-container {
   color: red;
   justify-content: center;
