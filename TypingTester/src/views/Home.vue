@@ -2,7 +2,11 @@
   <!--create k02 overlay-->
   <div class="main" ref="background">
     <div class="view" ref="view">
-      <div class="overlay" @click="closeTabs()" v-if="isDocsOpen || isEditOpen"></div>
+      <div
+        class="overlay"
+        @click="closeTabs()"
+        v-if="isDocsOpen || isEditOpen"
+      ></div>
       <div class="nav">
         <h1>Spelling Tester <span class="span1">| Hosted by Aéza</span></h1>
         <div class="mode-buttons">
@@ -11,6 +15,7 @@
           <button @click="resetText()">Reset</button>
           <button @click="source()">Source</button>
           <button @click="skerr()">Practice add-on</button>
+          <button @click="changeTheme()">{{ theme }}</button>
         </div>
       </div>
       <div class="container" v-if="score > 0">
@@ -155,6 +160,7 @@ export default {
       language: "russian",
       status: "Not started",
       hard_word: "",
+      theme: "Dark",
       skerror: false,
       rankedText: "Ranked Disabled",
       lower_case: false,
@@ -171,6 +177,19 @@ export default {
     this.generatedSpecificText = this.generateText();
   },
   methods: {
+    changeTheme() {
+      if (this.theme === "Dark") {
+        this.theme = "Light";
+        document.documentElement.style.setProperty("--black", "white");
+        document.documentElement.style.setProperty("--white", "black");
+        document.documentElement.style.setProperty("--background", "#F5F5F5");
+      } else if (this.theme === "Light") {
+        this.theme = "Dark";
+        document.documentElement.style.setProperty("--black", "black");
+        document.documentElement.style.setProperty("--white", "white");
+        document.documentElement.style.setProperty("--background", "#242424");
+      }
+    },
     closeTabs() {
       if (this.isEditOpen) {
         this.edit_();
@@ -284,7 +303,7 @@ export default {
           this.userTypedText += " ";
         }
       } else {
-          if (e.key === this.generatedSpecificText[this.symbolIndex]) {
+        if (e.key === this.generatedSpecificText[this.symbolIndex]) {
           this.status = "Normaly...";
           this.symbolIndex++;
           this.userTypedText += e.key;
@@ -293,7 +312,6 @@ export default {
           if (this.enabled) {
             this.score -= 1;
           }
-
         }
       }
     },
@@ -588,6 +606,7 @@ export default {
 :root {
   --black: black;
   --white: white;
+  --background: #242424;
 }
 
 .space-span {
@@ -604,7 +623,7 @@ body {
   user-select: none;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
-  background-color: #242424;
+  background-color: var(--background);
 }
 
 .inverted {
@@ -698,6 +717,7 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
+  color: var(--black);
   background-color: var(--white);
   margin-top: -10px;
   margin-left: -10px;
