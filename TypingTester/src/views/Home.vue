@@ -615,9 +615,7 @@ export default {
 }
 body {
   font-weight: 800;
-  transition:
-    background-color 0.4 ease,
-    color 0.7 ease;
+  transition: background-color 0.4s ease, color 0.4s ease;
   overflow: hidden;
   -webkit-user-select: none;
   user-select: none;
@@ -638,6 +636,7 @@ body {
 
 .keyboard-overlay span {
   display: inline-block;
+  transition: background-color 0.4s ease, color 0.4s ease;
   margin: 5px;
   padding: 20px 20px;
   border-radius: 5px;
@@ -716,6 +715,7 @@ body {
 }
 
 .nav {
+  transition: background-color 0.4s ease, color 0.4s ease;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -735,6 +735,7 @@ body {
 }
 
 .mode-buttons button {
+  transition: background-color 0.4s ease, color 0.4s ease;
   padding: 20px;
   font-size: 1.5rem;
   border: none;
