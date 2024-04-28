@@ -1,7 +1,7 @@
 # Simple Spelling Tester
 
 Разработано:
-На Vue + Vite + VueRouter
+На Vue + Vite
 С поддержкой aeza, regru
 
 todo: create theme changer, исправить баг связанный с тем что после того как ты напечатал текст статус начинает становиться error и надо сделать ended, rebuild with astro
