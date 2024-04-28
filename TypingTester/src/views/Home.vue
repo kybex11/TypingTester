@@ -708,7 +708,7 @@ body {
 .highlighted {
   background-color: yellow;
   border-radius: 5px;
-  color: var(--black);
+  color: black;
 }
 
 .incorrect {
