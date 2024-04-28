@@ -4,7 +4,7 @@
 На Vue + Vite
 С поддержкой aeza, regru
 
-todo: исправить баг связанный с тем что после того как ты напечатал текст статус начинает становиться error и надо сделать ended, rebuild with astro
+todo: on tablet create overlay as keyboard, create transition on change theme, баг связанный с тем что после того как ты напечатал текст статус начинает становиться error и надо сделать ended, rebuild with astro
 
 Баг хантеры: Alinna Bogdanova, Tw1stPl4y
 
