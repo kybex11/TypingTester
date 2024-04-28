@@ -174,7 +174,8 @@ export default {
     closeTabs() {
       if (this.isEditOpen) {
         this.edit_();
-      } else if (this.isDocsOpen) {
+      }
+      if (this.isDocsOpen) {
         this.docs();
       }
     },
