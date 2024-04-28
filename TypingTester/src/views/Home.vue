@@ -2,16 +2,12 @@
   <!--create k02 overlay-->
   <div class="main" ref="background">
     <div class="view" ref="view">
-      <div class="overlay" @click="docs()" v-if="isDocsOpen"></div>
+      <div class="overlay" @click="closeTabs()" v-if="isDocsOpen || isEditOpen"></div>
       <div class="nav">
         <h1>Spelling Tester <span class="span1">| Hosted by Aéza</span></h1>
         <div class="mode-buttons">
           <button @click="docs()">Docs</button>
-          <button @click="changeLang()">{{ language }}</button>
-          <button @click="setLowerCase()">Up Case</button>
-          <button @click="setMode('easy')">Easy Mode</button>
-          <button @click="setMode('hard')">Hard Mode</button>
-          <button @click="enable()">{{ rankedText }}</button>
+          <button @click="edit_()">Edit</button>
           <button @click="resetText()">Reset</button>
           <button @click="source()">Source</button>
           <button @click="skerr()">Practice add-on</button>
@@ -138,6 +134,13 @@
       <h1>Problem</h1>
       <h2>Hard mode working only in russian</h2>
     </div>
+    <div class="docs-view" v-if="isEditOpen">
+      <button @click="changeLang()">{{ language }}</button>
+      <button @click="setLowerCase()">Up Case</button>
+      <button @click="setMode('easy')">Easy Mode</button>
+      <button @click="setMode('hard')">Hard Mode</button>
+      <button @click="enable()">{{ rankedText }}</button>
+    </div>
   </div>
 </template>
 <script>
@@ -148,6 +151,7 @@ export default {
       symbolIndex: 0,
       userTypedText: "",
       isDocsOpen: false,
+      isEditOpen: false,
       language: "russian",
       status: "Not started",
       hard_word: "",
@@ -167,6 +171,13 @@ export default {
     this.generatedSpecificText = this.generateText();
   },
   methods: {
+    closeTabs() {
+      if (this.isEditOpen) {
+        this.edit_();
+      } else if (this.isDocsOpen) {
+        this.docs();
+      }
+    },
     skerr() {
       this.skerror = !this.skerror;
       this.resetText();
@@ -196,6 +207,15 @@ export default {
       }
       this.score = 100;
       this.resetText();
+    },
+    edit_() {
+      this.isEditOpen = !this.isEditOpen;
+
+      if (this.isEditOpen) {
+        this.$refs.background.classList.add("blur");
+      } else {
+        this.$refs.background.classList.remove("blur");
+      }
     },
     docs() {
       this.isDocsOpen = !this.isDocsOpen;
