@@ -5,7 +5,7 @@
       <div
         class="overlay"
         @click="closeTabs()"
-        v-if="isDocsOpen || isEditOpen"
+        v-if="isDocsOpen || isEditOpen || isCustomOpen"
       ></div>
       <div class="nav">
         <h1>Spelling Tester <span class="span1">| Hosted by Aéza</span></h1>
@@ -25,6 +25,7 @@
           <button @click="setWord('25')">25</button>
           <button @click="setWord('50')">50</button>
           <button @click="setWord('100')">100</button>
+          <button @click="setCustomWord()">Custom</button>
           <h2>{{ status }}</h2>
           <h2 v-if="enabled">Ranked: {{ score }}</h2>
           <h2>Current mode: {{ mode }}</h2>
@@ -146,6 +147,9 @@
       <button @click="setMode('hard')">Hard Mode</button>
       <button @click="enable()">{{ rankedText }}</button>
     </div>
+    <div class="docs-view" v-if="isCustomOpen">
+      <h1>In Dev...</h1>
+    </div>
   </div>
 </template>
 <script>
@@ -157,6 +161,7 @@ export default {
       userTypedText: "",
       isDocsOpen: false,
       isEditOpen: false,
+      isCustomOpen: false,
       language: "russian",
       status: "Not started",
       hard_word: "",
@@ -196,6 +201,18 @@ export default {
       }
       if (this.isDocsOpen) {
         this.docs();
+      }
+      if (this.isCustomOpen) {
+        this.setCustomWord();
+      }
+    },
+    setCustomWord() {
+      this.isCustomOpen = !this.isCustomOpen;
+
+      if (this.isCustomOpen) {
+        this.$refs.background.classList.add("blur");
+      } else {
+        this.$refs.background.classList.remove("blur");
       }
     },
     skerr() {
