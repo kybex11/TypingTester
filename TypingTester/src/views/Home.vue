@@ -15,6 +15,7 @@
           <button @click="resetText()">Reset</button>
           <button @click="source()">Source</button>
           <button @click="skerr()">Practice add-on</button>
+
           <button @click="changeTheme()">{{ theme }}</button>
         </div>
       </div>
@@ -146,9 +147,10 @@
       <button @click="setMode('easy')">Easy Mode</button>
       <button @click="setMode('hard')">Hard Mode</button>
       <button @click="enable()">{{ rankedText }}</button>
+      <button @click="caret()">{{caretName}}</button>
     </div>
     <div class="docs-view" v-if="isCustomOpen">
-      <h1>In Dev...</h1>
+      <input type="text" :value="default_words" @input="event => default_words = event.target.value" placeholder="Enter words count"/>
     </div>
   </div>
 </template>
@@ -166,6 +168,7 @@ export default {
       status: "Not started",
       hard_word: "",
       theme: "Dark",
+      caretName: "Filled",
       skerror: false,
       rankedText: "Ranked Disabled",
       lower_case: false,
@@ -182,6 +185,13 @@ export default {
     this.generatedSpecificText = this.generateText();
   },
   methods: {
+    caret() {
+      if (this.caretName === "Filled") {
+        this.caretName = "Caret";
+      } else if (this.caretName === "Caret") {
+        this.caretName = "Filled";
+      }
+    },
     changeTheme() {
       if (this.theme === "Dark") {
         this.theme = "Light";
@@ -633,7 +643,7 @@ export default {
 body {
   font-weight: 800;
   transition: background-color 0.4s ease, color 0.4s ease;
-  overflow: hidden;
+  overflow-x: hidden;
   -webkit-user-select: none;
   user-select: none;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
