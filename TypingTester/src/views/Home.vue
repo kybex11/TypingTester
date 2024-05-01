@@ -144,10 +144,7 @@
     <div class="docs-view" v-if="isEditOpen">
       <button @click="changeLang()">{{ language }}</button>
       <button @click="setLowerCase()">Up Case</button>
-      <button @click="setMode('easy')">Easy Mode</button>
-      <button @click="setMode('hard')">Hard Mode</button>
       <button @click="enable()">{{ rankedText }}</button>
-      <button @click="caret()">{{caretName}}</button>
     </div>
     <div class="docs-view" v-if="isCustomOpen">
       <input type="text" :value="default_words" @input="event => default_words = event.target.value" placeholder="Enter words count"/>
@@ -168,12 +165,10 @@ export default {
       status: "Not started",
       hard_word: "",
       theme: "Dark",
-      caretName: "Filled",
       skerror: false,
       rankedText: "Ranked Disabled",
       lower_case: false,
       default_words: 10,
-      mode: "",
       enabled: false,
       score: 100,
       invert: false,
@@ -181,17 +176,9 @@ export default {
   },
   mounted() {
     window.addEventListener("keydown", (e) => this.keydownHandle(e));
-    this.setMode("easy");
     this.generatedSpecificText = this.generateText();
   },
   methods: {
-    caret() {
-      if (this.caretName === "Filled") {
-        this.caretName = "Caret";
-      } else if (this.caretName === "Caret") {
-        this.caretName = "Filled";
-      }
-    },
     changeTheme() {
       if (this.theme === "Dark") {
         this.theme = "Light";
@@ -240,7 +227,6 @@ export default {
       if (this.language == "russian") {
         this.language = "english";
         this.resetText();
-        this.setMode("easy");
       } else if (this.language == "english") {
         this.language = "russian";
         this.resetText();
@@ -279,10 +265,6 @@ export default {
     },
     setLowerCase() {
       this.lower_case = !this.lower_case;
-      this.resetText();
-    },
-    setMode(mode) {
-      this.mode = mode;
       this.resetText();
     },
     resetText() {
@@ -555,65 +537,25 @@ export default {
         "зеленый",
         "белый",
       ];
-      const hard_words = [
-        "бесспорно",
-        "трансцендентный",
-        "автостеклоподъмники",
-        "длинношеее",
-        "собираться",
-        "вокруг",
-        "который",
-        "иметь",
-        "первый",
-        "ехать",
-        "взгляд",
-        "транскрипция",
-        "аксессуар",
-        "человеческий",
-        "ветрогенератор",
-        "голослов",
-        "землетрясение",
-        "огнетушитель",
-        "дождевик",
-        "молокосос",
-        "водоснабжение",
-        "железнодорожник",
-        "алеть",
-        "безынтересный",
-        "безысходный",
-        "безумный",
-        "безопасный",
-        "беспрекословный",
-        "впечатлительный",
-        "возрастать",
-        "исчезающий",
-        "мороженщик",
-        "надеяться",
-        "намерение",
-      ];
-
       const randomWords = [];
-      for (let i = 0; i < this.default_words; i++) {
+      const selectedWords = new Set();
+
+      const totalWords = this.default_words;
+      let wordsPool;
+
+      if (this.language == "russian") {
+        wordsPool = words;
+      } else if (this.language == "english") {
+        wordsPool = english_words;
+      }
+
+      for (let i = 0; i < totalWords; i++) {
         let selectedWord;
-        if (this.language == "russian") {
-          selectedWord = words[Math.floor(Math.random() * words.length)];
-        } else if (this.language == "english") {
-          selectedWord =
-            english_words[Math.floor(Math.random() * english_words.length)];
-        }
+        do {
+          selectedWord = wordsPool[Math.floor(Math.random() * wordsPool.length)];
+        } while (selectedWords.has(selectedWord));
 
-        if (this.mode === "hard") {
-          selectedWord =
-            hard_words[Math.floor(Math.random() * hard_words.length)];
-        } else if (this.mode === "easy") {
-          if (this.lower_case) {
-            selectedWord =
-              selectedWord.charAt(0).toUpperCase() + selectedWord.slice(1);
-          } else {
-            selectedWord = selectedWord.charAt(0) + selectedWord.slice(1);
-          }
-        }
-
+        selectedWords.add(selectedWord);
         randomWords.push(selectedWord);
       }
       return randomWords.join(" ");
@@ -643,7 +585,8 @@ export default {
 body {
   font-weight: 800;
   transition: background-color 0.4s ease, color 0.4s ease;
-  overflow-x: hidden;
+  overflow: hidden;
+  -webkit-overflow: hidden;
   -webkit-user-select: none;
   user-select: none;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
