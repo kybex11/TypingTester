@@ -149,6 +149,9 @@
     <div class="docs-view" v-if="isCustomOpen">
       <input type="text" :value="default_words" @input="event => default_words = event.target.value" placeholder="Enter words count"/>
     </div>
+    <div class="information-menu">
+      <h1>Currently this is website on beta testing / В настоящее время этот сайт находится на стадии бета-тестирования</h1>
+    </div>
   </div>
 </template>
 <script>
@@ -581,6 +584,19 @@ export default {
 .space-span {
   width: 400px;
   height: 20px;
+}
+
+.information-menu h1 {
+  font-size: 1.5rem;
+  color: var(--white);
+}
+
+.information-menu {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  bottom: 0;
+  position: absolute;
 }
 body {
   font-weight: 800;
