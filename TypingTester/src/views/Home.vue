@@ -301,6 +301,14 @@ export default {
         e.preventDefault();
         return;
       }
+      if (this.isCustomOpen) {
+        if (e.target.tagName.toLowerCase() === 'input') {
+          return;
+        } else {
+          e.preventDefault();
+          return;
+        }
+      }
       if (!this.skerror) {
         if (e.key === this.generatedSpecificText[this.symbolIndex]) {
           this.status = "Normaly...";
